@@ -1,0 +1,111 @@
+<?= $this->extend('layout') ?>
+
+
+<?php if (!empty($header_links)): ?>
+   <?php foreach ($header_links as $link): ?>
+     <?php if ($link['link']=='pos')
+      { ?>
+<?= $this->section('content') ?>
+
+<div class="container mt-5">
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h3 class="card-title text-primary mb-4">
+                🧾 Current Order
+            </h3>
+
+            <?php if (!$order): ?>
+                <div class="alert alert-info">No active order found.</div>
+            <?php else: ?>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered text-center align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Item</th>
+                                <th>VAT Code</th>
+                                <th>@Price (KES)</th>
+                                <th>Qty</th>
+                                <th>Total (KES)</th>
+                                <th>🗑 Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $grandTotal = 0;
+                            $totalVAT = 0;
+                            foreach ($items as $item):
+                                $lineTotal = $item->sellingPrice * $item->quantity;
+                                $grandTotal += $lineTotal;
+                                $vatAmount = $item->vat_amnt ?? 0;
+                                $totalVAT += $vatAmount;
+                            ?>
+                            <tr>
+                                <td><?= esc($item->item_name) ?></td>
+                                <td><?= esc($item->vat_code) ?></td>
+                                <td><?= number_format($item->sellingPrice, 2) ?></td>
+                                <td><?= esc($item->quantity) ?></td>
+                                <td><?= number_format($lineTotal, 2) ?></td>
+                                <td>
+                                    <form action="<?= site_url('salesorder/remove_item') ?>" method="post" onsubmit="return confirm('Are you sure you want to remove this item?');">
+                                        <?= csrf_field() ?>
+                                        <input type="hidden" name="item_id" value="<?= esc($item->id) ?>">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Remove</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                        <tfoot class="fw-bold">
+                            <tr class="table-light">
+                                <td colspan="4" class="text-end">Total VAT:</td>
+                                <td colspan="2"><?= number_format($totalVAT, 2) ?></td>
+                            </tr>
+                            <tr class="table-secondary">
+                                <td colspan="4" class="text-end">Grand Total:</td>
+                                <td colspan="2"><?= number_format($grandTotal, 2) ?></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <form method="post" action="<?= site_url('salesorder/close') ?>" class="mt-4">
+                    <?= csrf_field() ?>
+                    <div class="row g-3 align-items-center mb-3">
+                        <div class="col-md-6">
+                            <label for="amount_paid" class="form-label">💰 Amount Paid (KES):</label>
+                            <input type="number" step="0.01" name="amount_paid" id="amount_paid" class="form-control form-control-lg" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="change" class="form-label">🧮 Change (KES):</label>
+                            <input type="text" class="form-control form-control-lg bg-light" id="change" readonly>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="<?= site_url('officer/officer') ?>" class="btn btn-outline-secondary btn-lg">
+                            ⬅ Exit
+                        </a>
+                        <button type="submit" class="btn btn-success btn-lg">
+                            ✅ Pay & Close Order
+                        </button>
+                    </div>
+                </form>
+            <?php endif ?>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('amount_paid').addEventListener('input', function () {
+    let paid = parseFloat(this.value) || 0;
+    let total = <?= $grandTotal ?>;
+    let change = paid - total;
+    document.getElementById('change').value = change >= 0 ? change.toFixed(2) : '0.00';
+});
+</script>
+
+<?= $this->endSection() ?>
+
+<?php } ?>
+<?php endforeach; ?>
+<?php endif; ?>
