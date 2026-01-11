@@ -1,0 +1,87 @@
+#--------------------------------------------------------------------
+# Example Environment Configuration file
+#
+# This file can be used as a starting point for your own
+# custom .env files, and contains most of the possible settings
+# available in a default install.
+#
+# By default, all of the settings are commented out. If you want
+# to override the setting, you must un-comment it by removing the '#'
+# at the beginning of the line.
+#--------------------------------------------------------------------
+
+#--------------------------------------------------------------------
+# ENVIRONMENT
+#--------------------------------------------------------------------
+
+CI_ENVIRONMENT = development
+#CI_ENVIRONMENT = production
+
+#--------------------------------------------------------------------
+# APP
+#--------------------------------------------------------------------
+
+app.baseURL = 'https://minimart.transcommedia.com/'
+app.mobileURL = 'https://mobile.minimart.transcommedia.com/'
+app.privatePath = '/home/ikapel/private/mat'
+app.websiteURL = 'https://transcommedia.com/'
+
+# Email configs
+app.emailFrom = 'info@ transcommedia.com'
+app.emailFromName = "Transcom Media System"
+
+# Comma-separated list of extra recipients
+app.adminEmails = 'admin1@ transcommedia.com, admin2@ transcommedia.com'
+
+#--------------------------------------------------------------------
+# EMAIL (custom no-reply)
+#--------------------------------------------------------------------
+app.noReplyEmail = 'no-reply@transcommedia.com'
+
+
+
+#--------------------------------------------------------------------
+# EMAIL
+#--------------------------------------------------------------------
+email.fromEmail = 'no-reply@transcommedia.com'
+email.fromName  = "Transcom Media Ltd."
+email.SMTPHost  = 'mail.transcommedia.com'
+email.SMTPUser  = 'no-reply@transcommedia.com'
+email.SMTPPass  = ''
+email.SMTPPort  = 587
+email.SMTPCrypto = 'tls'
+email.protocol   = 'smtp'
+
+
+
+
+#--------------------------------------------------------------------
+# DATABASE
+#--------------------------------------------------------------------
+database.default.hostname = 127.0.0.1
+database.default.database =  [DATABASE]
+database.default.username = [USER]
+database.default.password = '[PASSWORD]'
+database.default.DBDriver = MySQLi
+database.default.DBPrefix =
+database.default.port = 3308
+
+
+#--------------------------------------------------------------------
+# ENCRYPTION
+#--------------------------------------------------------------------
+
+# encryption.key =
+
+#--------------------------------------------------------------------
+# SESSION
+#--------------------------------------------------------------------
+
+# session.driver = 'CodeIgniter\Session\Handlers\FileHandler'
+# session.savePath = null
+
+#--------------------------------------------------------------------
+# LOGGER
+#--------------------------------------------------------------------
+
+# logger.threshold = 4
