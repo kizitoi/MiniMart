@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="https://nairobimetaldetectors.com/favicon.png" />
 
   <!-- Google Maps Places API -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3puSMIyMv6Ht-5Ksar-2nonEaZEcOURU&libraries=places" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=----------------------" async defer></script>
 
   <!-- ✅ Bootstrap 5 only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -71,7 +71,7 @@
           <i class="fas fa-bars fa-lg text-secondary"></i>
         </a>
 
-        <img src="https://nairobimetaldetectors.net/logo.jpg" alt="Company Logo" width="200" height="90"   shadow-sm me-2" style="object-fit: cover;">
+        <img src="/logo.jpg" alt="Company Logo" width="200" height="90"   shadow-sm me-2" style="object-fit: cover;">
 
         <div class="d-none d-md-block">
           <h5 class="mb-0 fw-semibold text-primary"><?= esc($companyName ?? 'Nairobi Metal Detectors Ltd') ?></h5>
